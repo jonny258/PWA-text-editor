@@ -1,0 +1,10 @@
+{
+  "name": "My App",
+  "short_name": "App",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": ".",
+  "description": "My Progressive Web App",
+  "background_color": "#ffffff",
+  "theme_color": "#2196f3"
+}
