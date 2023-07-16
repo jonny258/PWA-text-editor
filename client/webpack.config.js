@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = function () {
   return {
@@ -11,8 +12,9 @@ module.exports = function () {
     },
     output: {
       filename: '[name].bundle.js',
-      path: path.resolve(__dirname, 'dist').toString(),
-    },
+      path: path.resolve(__dirname, 'public'),
+      publicPath: '/',
+    },    
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
@@ -22,6 +24,11 @@ module.exports = function () {
         swSrc: './src-sw.js',
         swDest: 'service-worker.js',
       }),
+      // new CopyWebpackPlugin({
+      //   patterns: [
+      //     { from: 'assets', to: 'assets' },
+      //   ],
+      // }),
     ],
     module: {
       rules: [
