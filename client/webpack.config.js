@@ -38,7 +38,7 @@ module.exports = function () {
       new GenerateSW(),
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'service-worker.js',
+        swDest: 'src-sw.js',
       }),
     ],
     module: {

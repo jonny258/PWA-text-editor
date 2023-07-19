@@ -12,33 +12,24 @@ const initdb = async () =>
     },
   });
 
-// Logic to a method that accepts some content and adds it to the database
 export const putDb = async (content) => {
-  const db = await initdb();
+  const db = await openDB('jate',1);
   const tx = db.transaction('jate', 'readwrite');
   const store = tx.objectStore('jate');
-  
-  // Save content to indexedDB. In this example we're using an id of 1 for simplicity.
-  // You might need to adjust this if your app requires multiple records in indexedDB.
-  await store.put({id: 1, content: content});
-  
-  await tx.done;
-  console.log('Data added to indexedDB.');
-}
+  const request = store.add({ content });
+  await tx.complete;
+  const results = await request;
+  console.log(results);
+  return results;
+};
 
-// Logic for a method that gets all the content from the database
 export const getDb = async () => {
-  const db = await initdb();
+  const db = await openDB('jate', 1);
   const tx = db.transaction('jate', 'readonly');
   const store = tx.objectStore('jate');
-
-  // Get content from indexedDB. Again, we're assuming an id of 1 for simplicity.
-  const data = await store.get(1);
-
-  await tx.done;
-
-  // Return the content, or undefined if no content was found.
-  return data ? data.content : undefined;
-}
+  const request = store.getAll();
+  const results = await request;
+  console.log(results);
+};
 
 initdb();
